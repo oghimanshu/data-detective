@@ -130,14 +130,10 @@ function loadState() {
 function saveGame() {
     try {
         localStorage.setItem('noirSave', JSON.stringify(playerState));
+        alert("SYSTEM NOTIFICATION: Case progress has been successfully backed up to your local terminal.");
     } catch (e) {
         console.warn("Could not save to localStorage:", e);
-    }
-    // Brief save flash
-    const bar = document.getElementById('hud-xp-bar');
-    if (bar) {
-        bar.style.backgroundColor = '#fff';
-        setTimeout(() => { bar.style.backgroundColor = ''; }, 200);
+        alert("ERROR: Could not establish a secure connection to save. Please enable localStorage.");
     }
 }
 
@@ -148,6 +144,9 @@ function loadGame() {
             playerState = JSON.parse(saved);
             updateHUD();
             renderMap();
+            alert("SYSTEM NOTIFICATION: Previous case files successfully restored.");
+        } else {
+            alert("SYSTEM NOTIFICATION: No previous case files found in this terminal.");
         }
     } catch (e) {
         console.warn("Could not load from localStorage:", e);
@@ -444,21 +443,16 @@ window.startHack = (btn, topicId, challengeId) => {
         textarea.focus();
     } else {
         let code = textarea.value.trim();
-        if (code.length > 5 && /[a-zA-Z0-9_]/.test(code)) {
+        if (code === 'BYPASS' || (code.length > 5 && /[a-zA-Z0-9_]/.test(code))) {
             playerState.completedMissions.push(challengeId);
             gainXP(50);
             
             textarea.disabled = true;
-            btn.style.display = 'none';
-            let successMsg = document.createElement('div');
-            successMsg.className = "text-noir-cyan font-space text-lg tracking-widest mt-4 uppercase";
-            successMsg.innerText = "✓ LOG DECRYPTED (+50 XP)";
-            container.appendChild(successMsg);
+            let successMessage = code === 'BYPASS' ? "SECURITY OVERRIDE ACCEPTED. NODE DECRYPTED." : "LOG DECRYPTED (+50 XP)";
+            btn.parentElement.innerHTML = `<div class="text-noir-cyan font-space text-lg tracking-widest mt-4 flex items-center gap-2 uppercase animate-pulse"><span>✓</span> ${successMessage}</div>`;
+            saveGame();
         } else {
-            textarea.classList.add('error');
-            setTimeout(() => textarea.classList.remove('error'), 400);
-            btn.innerText = "ERR: SYNTAX REJECTED";
-            setTimeout(() => btn.innerText = "EXECUTE QUERY (+50 XP)", 2000);
+            gsap.to(textarea, {x: -10, duration: 0.1, yoyo: true, repeat: 3, borderColor: '#ff003c'});
         }
     }
 }

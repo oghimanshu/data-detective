@@ -38,7 +38,9 @@ Built to be lightning-fast and universally accessible.
 * **Frontend:** Pure HTML5 and Vanilla JavaScript.
 * **Styling:** Tailwind CSS (via CDN) for rapid, responsive UI development.
 * **Animations:** GSAP & Studio Freight Lenis.
-* **Persistence:** Uses `localStorage` to save your clearance level and decrypted nodes offline.
+
+### 🤫 Developer Secrets
+* **BYPASS Override:** If you or a student are ever completely stuck on a decryption challenge, open the terminal and input the exact string `BYPASS` (all caps). The system will recognize the security override, decrypt the node without granting XP, and unlock the next file in the story!
 
 ---
 
@@ -56,10 +58,11 @@ Built to be lightning-fast and universally accessible.
 
 ---
 
-## 🔒 Privacy & Data
+## 🔒 Save System & Privacy
 
-* **Offline-First:** No analytics, no tracking, and no external databases.
-* **Local Saves:** Your progress is saved entirely within your browser's local storage. Everything stays on your machine.
+* **Universal Encrypted Keys:** The game features a decentralized, offline save system. Clicking 'SAVE' generates a secure Base64 `Universal Save Key` and stores it locally.
+* **Cross-Device Play:** You can copy your `Universal Save Key` and load it on any other device without needing a user account or backend server.
+* **Privacy First:** No analytics, no tracking, and no external databases. Everything stays between you and your browser.
 
 ---
 
